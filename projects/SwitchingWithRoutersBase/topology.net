@@ -1,0 +1,206 @@
+autostart = False
+version = 0.8.4
+[127.0.0.1:7200]
+    workingdir = working
+    udp = 10001
+    [[3725]]
+        image = C:\Users\adriana\Google Drive\GNS3_Root\images\c3725-adventerprisek9-mz.124-25d.image
+        ram = 128
+        sparsemem = True
+        ghostios = True
+    [[ROUTER SW1]]
+        model = 3725
+        console = 2101
+        aux = 2501
+        cnfg = configs\SW1.cfg
+        slot1 = NM-16ESW
+        f1/1 = R1 f0/0
+        f1/11 = SW2 f1/11
+        f1/14 = SW4 f1/14
+        f1/15 = SW4 f1/15
+        symbol = ethernet_switch
+        x = -70.0
+        y = -201.0
+        z = 1.0
+        hx = 7.0
+        hy = 8.0
+    [[ROUTER SW3]]
+        model = 3725
+        console = 2103
+        aux = 2503
+        cnfg = configs\SW3.cfg
+        slot1 = NM-16ESW
+        f1/1 = NIO_udp:30001:127.0.0.1:20001
+        f1/12 = SW2 f1/12
+        f1/13 = SW4 f1/13
+        symbol = ethernet_switch
+        x = -319.0
+        y = 4.0
+        z = 1.0
+        hx = 8.0
+        hy = 9.0
+    [[ROUTER SW2]]
+        model = 3725
+        console = 2102
+        aux = 2502
+        cnfg = configs\SW2.cfg
+        slot1 = NM-16ESW
+        f1/1 = NIO_udp:30002:127.0.0.1:20002
+        f1/11 = SW1 f1/11
+        f1/12 = SW3 f1/12
+        symbol = ethernet_switch
+        x = -73.0
+        y = 0.0
+        z = 1.0
+        hx = 6.5
+        hy = 8.0
+    [[ROUTER SW4]]
+        model = 3725
+        console = 2104
+        aux = 2504
+        cnfg = configs\SW4.cfg
+        slot1 = NM-16ESW
+        f1/1 = NIO_udp:30000:127.0.0.1:20000
+        f1/13 = SW3 f1/13
+        f1/14 = SW1 f1/14
+        f1/15 = SW1 f1/15
+        symbol = ethernet_switch
+        x = -308.0
+        y = -199.0
+        z = 1.0
+        hx = 8.0
+        hy = 8.0
+[127.0.0.1:7201]
+    workingdir = working
+    udp = 10101
+    [[3725]]
+        image = C:\Users\adriana\Google Drive\GNS3_Root\images\c3725-adventerprisek9-mz.124-25d.image
+        ram = 128
+        sparsemem = True
+        ghostios = True
+    [[ROUTER R1]]
+        model = 3725
+        console = 2105
+        aux = 2505
+        cnfg = configs\R1.cfg
+        f0/0 = SW1 f1/1
+        f0/1 = NIO_udp:30003:127.0.0.1:20003
+        x = 141.0
+        y = -205.0
+        z = 1.0
+[GNS3-DATA]
+    configs = configs
+    workdir = working
+    [[NOTE 1]]
+        text = "VLan1 - 10.0.0.0 /24\nVLan10 - 10.10.0.0 /24\nVLan20 - 10.20.0.0 /24\nVLan30 - 10.30.0.0 /24\nVLan Management via switch 10.0.0.10"
+        x = -429.0
+        y = 145.5
+    [[Cloud VLan30]]
+        symbol = Host
+        x = 104.5
+        y = 85.5
+        hx = -5.5
+        hy = -26.0
+        z = 1.0
+        connections = SW2:f1/1:nio_udp:30002:127.0.0.1:20002
+    [[Cloud Internet]]
+        x = 276.5
+        y = -154.0
+        hx = 50.0
+        hy = 18.0
+        z = 1.0
+        connections = R1:f0/1:nio_udp:30003:127.0.0.1:20003
+    [[Cloud VLan20]]
+        symbol = Host
+        x = -490.5
+        y = 3.5
+        hx = 17.5
+        hy = -24.0
+        z = 1.0
+        connections = SW3:f1/1:nio_udp:30001:127.0.0.1:20001
+    [[Cloud VLan10]]
+        symbol = Host
+        x = -471.5
+        y = -205.5
+        z = 1.0
+        connections = SW4:f1/1:nio_udp:30000:127.0.0.1:20000
+    [[NOTE 2]]
+        text = "f0/1"
+        x = 70.7348992611
+        y = 35.2694151248
+        interface = R1 f0/1
+    [[NOTE 3]]
+        text = "f0/0"
+        x = -6.97810985116
+        y = 20.6768474281
+        interface = R1 f0/0
+    [[NOTE 4]]
+        text = "f1/1"
+        x = -46.4646961277
+        y = 20.6801974348
+        interface = SW4 f1/1
+    [[NOTE 5]]
+        text = "f1/15"
+        x = 67.4179078582
+        y = -55.617885031
+        interface = SW4 f1/15
+    [[NOTE 6]]
+        text = "f1/14"
+        x = 62.4952182027
+        y = -30.6184827557
+        interface = SW4 f1/14
+    [[NOTE 7]]
+        text = "f1/13"
+        x = 37.7239754552
+        y = 41.9605522586
+        interface = SW4 f1/13
+    [[NOTE 8]]
+        text = "f1/1"
+        x = -50.3409036178
+        y = 18.4359575038
+        interface = SW3 f1/1
+    [[NOTE 9]]
+        text = "f1/12"
+        x = 61.4867214624
+        y = 21.0305856047
+        interface = SW3 f1/12
+    [[NOTE 10]]
+        text = "f1/13"
+        x = 44.2760245448
+        y = -39.9605522586
+        interface = SW3 f1/13
+    [[NOTE 11]]
+        text = "f1/1"
+        x = 82.3458486518
+        y = 11.5686684444
+        interface = SW2 f1/1
+    [[NOTE 12]]
+        text = "f1/12"
+        x = 4.5132785376
+        y = 45.9694143953
+        interface = SW2 f1/12
+    [[NOTE 13]]
+        text = "f1/11"
+        x = 44.200588665
+        y = -53.9638336273
+        interface = SW2 f1/11
+    [[NOTE 14]]
+        text = "f1/1"
+        x = 88.4781098512
+        y = -10.6768474281
+        interface = SW1 f1/1
+    [[NOTE 15]]
+        text = "f1/11"
+        x = 41.799411335
+        y = 38.9638336273
+        interface = SW1 f1/11
+    [[NOTE 16]]
+        text = "f1/15"
+        x = -35.5725285472
+        y = -46.3809195196
+        interface = SW1 f1/15
+    [[NOTE 17]]
+        text = "f1/14"
+        x = -43.4952182027
+        y = -22.3815172443
+        interface = SW1 f1/14

@@ -1,0 +1,20 @@
+enable
+
+conf t
+ alias exec c conf t
+ no ip domain-lookup
+ ip tcp synwait 5
+ no service tim long
+ no service time debug
+
+line con 0
+ no login
+ no exec-timeout
+ logging synch
+ privi level 15
+ exit
+
+line vty 0 4
+ no login
+ privi level 15
+ exit

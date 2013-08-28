@@ -1,0 +1,113 @@
+autostart = False
+version = 0.8.4
+[127.0.0.1:7200]
+    workingdir = working
+    udp = 10001
+    [[3725]]
+        image = C:\Users\adriana\Google Drive\GNS3_Root\images\c3725-adventerprisek9-mz.124-25d.image
+        ram = 128
+        idlepc = 0x6024681c
+        sparsemem = True
+        ghostios = True
+    [[ETHSW SW1]]
+        1 = access 1 R1 f0/1
+        2 = access 1 nio_gen_eth:\device\npf_{a97d9171-dd38-4726-a828-b928d6af3190}
+        x = -364.5
+        y = -28.0
+        z = 1.0
+    [[ROUTER R1]]
+        model = 3725
+        console = 2101
+        aux = 2501
+        cnfg = configs\R1.cfg
+        f0/0 = R2 f0/0
+        f0/1 = SW1 1
+        x = -207.0
+        y = -160.0
+        z = 1.0
+    [[ROUTER R2]]
+        model = 3725
+        console = 2102
+        aux = 2502
+        cnfg = configs\R2.cfg
+        f0/0 = R1 f0/0
+        f0/1 = nio_gen_eth:\device\npf_{16fe7660-a1a3-45d9-aeda-b1df5219dfcd}
+        x = 84.0
+        y = -167.0
+        z = 1.0
+[GNS3-DATA]
+    configs = configs
+    workdir = working
+    [[NOTE 1]]
+        text = "192.168.1.250 /24"
+        x = 214.0
+        y = -167.5
+    [[NOTE 2]]
+        text = ".249"
+        x = 29.0
+        y = -198.5
+    [[NOTE 3]]
+        text = ".250\n"
+        x = -110.0
+        y = -195.5
+    [[NOTE 4]]
+        text = "192.168.2.0 /24"
+        x = -106.0
+        y = -227.5
+    [[NOTE 5]]
+        text = "192.168.3.10 /24\n"
+        x = -347.0
+        y = 144.5
+    [[NOTE 6]]
+        text = "192.168.3.250 /24"
+        x = -376.0
+        y = -177.5
+    [[NOTE 7]]
+        text = "VMnet2"
+        x = -449.0
+        y = 172.5
+    [[NOTE 8]]
+        text = "MSLoopback\n"
+        x = 257.0
+        y = -18.5
+    [[Cloud C2]]
+        x = 228.5
+        y = -36.0
+        z = 1.0
+        connections = R2:f0/1:nio_gen_eth:\device\npf_{16fe7660-a1a3-45d9-aeda-b1df5219dfcd}
+    [[NOTE 9]]
+        text = "2"
+        x = 16.8701426867
+        y = 51.3967288953
+        interface = SW1 2
+    [[NOTE 10]]
+        text = "1"
+        x = 66.5384338576
+        y = -9.23124300681
+        interface = SW1 1
+    [[Cloud C1]]
+        symbol = Host
+        x = -441.5
+        y = 110.5
+        z = 1.0
+        connections = SW1:2:nio_gen_eth:\device\npf_{a97d9171-dd38-4726-a828-b928d6af3190}
+    [[NOTE 11]]
+        text = "f0/1"
+        x = 78.939698851
+        y = 26.0801918039
+        interface = R2 f0/1
+    [[NOTE 12]]
+        text = "f0/0"
+        x = -36.988432176
+        y = 34.9619210489
+        interface = R2 f0/0
+    [[NOTE 13]]
+        text = "f0/1"
+        x = 1.96156614242
+        y = 47.2312430068
+        interface = R1 f0/1
+    [[NOTE 14]]
+        text = "f0/0"
+        x = 72.988432176
+        y = 21.0380789511
+        interface = R1 f0/0

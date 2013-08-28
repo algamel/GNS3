@@ -1,0 +1,54 @@
+autostart = False
+version = 0.8.4
+[127.0.0.1:7200]
+    workingdir = c:\users\adriana\appdata\local\temp\GNS3_l7fjkw\working
+    udp = 10001
+    [[7200]]
+        image = C:\Users\adriana\Google Drive\GNS3_Root\images\c7200-adventerprisek9-mz.124-24.T8.image
+        idlepc = 0x606e0510
+        sparsemem = True
+        ghostios = True
+    [[ETHSW SW1]]
+        1 = access 1 nio_gen_eth:\device\npf_{a824b2f2-58a8-4085-92d3-d245aeb08640}
+        2 = access 1 R1 f1/0
+        x = -374.5
+        y = -20.0
+        z = 1.0
+    [[ROUTER R1]]
+        console = 2101
+        aux = 2501
+        cnfg = configs\R1.cfg
+        slot0 = C7200-IO-FE
+        f0/0 = R2 f0/0
+        slot1 = PA-FE-TX
+        f1/0 = SW1 2
+        x = -300.0
+        y = -140.0
+        z = 1.0
+    [[ROUTER R2]]
+        console = 2102
+        aux = 2502
+        cnfg = configs\R2.cfg
+        slot0 = C7200-IO-FE
+        f0/0 = R1 f0/0
+        x = -44.0
+        y = -138.0
+        z = 1.0
+[GNS3-DATA]
+    configs = configs
+    [[Cloud C2]]
+        symbol = Host
+        x = -439.5
+        y = 85.5
+        z = 1.0
+        connections = SW1:1:nio_gen_eth:\device\npf_{a824b2f2-58a8-4085-92d3-d245aeb08640}
+    [[NOTE 1]]
+        text = "f0/0"
+        x = -6.99532481981
+        y = 21.3884506908
+        interface = R2 f0/0
+    [[NOTE 2]]
+        text = "f0/0"
+        x = 72.9953248198
+        y = 22.6115493092
+        interface = R1 f0/0
